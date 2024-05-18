@@ -64,6 +64,9 @@ fi
 
 function blob_fixup() {
     case "${1}" in
+        odm/bin/hw/vendor.oplus.hardware.biometrics.fingerprint@2.1-service_uff)
+            grep -q libshims_fingerprint.oplus.so "${2}" || "${PATCHELF}" --add-needed libshims_fingerprint.oplus.so "${2}"
+            ;;
         odm/etc/camera/CameraHWConfiguration.config)
             sed -i "/SystemCamera = / s/1;/0;/g" "${2}"
             sed -i "/SystemCamera = / s/0;$/1;/" "${2}"
